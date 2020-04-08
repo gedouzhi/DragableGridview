@@ -29,7 +29,7 @@ class DragAbleGridView <T extends DragAbleGridViewBin> extends StatefulWidget{
   ///删除按钮
   final Widget deleteIcon;
   final DeleteIconClickListener deleteIconClickListener;
-
+  final ScrollPhysics physics;
 
   DragAbleGridView({
     @required this.child,
@@ -45,6 +45,7 @@ class DragAbleGridView <T extends DragAbleGridViewBin> extends StatefulWidget{
     this.longPressDuration:800,
     this.deleteIcon,
     this.deleteIconClickListener,
+    this.physics,
   }) :assert(
   child!=null,
   itemBins!=null,
@@ -58,7 +59,6 @@ class DragAbleGridView <T extends DragAbleGridViewBin> extends StatefulWidget{
 
 class  DragAbleGridViewState <T extends DragAbleGridViewBin> extends State<DragAbleGridView> with SingleTickerProviderStateMixin implements DragAbleViewListener{
 
-  var physics=new ScrollPhysics();
   double screenWidth;
   double screenHeight;
   ///在拖动过程中Item position 的位置记录
@@ -226,7 +226,7 @@ class  DragAbleGridViewState <T extends DragAbleGridViewBin> extends State<DragA
   @override
   Widget build(BuildContext context) {
     return new GridView.builder(
-        physics: physics,
+        physics: widget.physics,
         scrollDirection: Axis.vertical,
         itemCount: widget.itemBins.length,
         gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
